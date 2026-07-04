@@ -1,0 +1,13 @@
+<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="300" fill="#f2f2f2"/>
+  <polyline points="40,260 40,20" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <polyline points="40,260 580,260" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <polyline points="40,260 120,180 200,210 280,110 360,150 440,60 520,90"
+            stroke="#1155cc" stroke-width="3" fill="none"/>
+  <text x="300" y="290" font-family="sans-serif" font-size="14" fill="#595959" text-anchor="middle">
+    x
+  </text>
+  <text x="20" y="20" font-family="sans-serif" font-size="14" fill="#595959">
+    y
+  </text>
+</svg>
