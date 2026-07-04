@@ -8,6 +8,8 @@ const writing = defineCollection({
     title: z.string(),
     date: z.coerce.date(),
     description: z.string(),
+    // To write about a new topic later, add it to this list.
+    topic: z.enum(['mathematics', 'physics']),
   }),
 });
 

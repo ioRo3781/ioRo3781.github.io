@@ -2,6 +2,7 @@
 title: "Example Post: Template for Future Writing"
 date: 2026-07-04
 description: "A template post demonstrating headings, math, code, and images."
+topic: mathematics
 ---
 
 This is a template post. Copy this file, rename it, and replace the content
