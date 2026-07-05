@@ -17,7 +17,6 @@ Second, division by 0 cannot be defined. Starting from division, we might or mig
 Let's compute the difference quotient for a concrete motion $x(t)=t^2$:
 $$
 \frac{(t+\Delta t)^2 - \Delta t^2}{\Delta t}=\frac{2t\Delta t +(\Delta)^2}{\Delta t}=2t+\Delta t
-
 $$
 
 On a position–time graph, $\bar{v}$ is the slope of the straight line
