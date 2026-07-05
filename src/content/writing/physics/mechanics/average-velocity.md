@@ -4,19 +4,20 @@ date: 2026-07-05
 description: "Here are the basic mathematics and physics behind those topics "
 ---
 
-Average velocity over time $${\Delta t}$$ is a the single, constant velocity that reproduces your actual displacement over your actual time. It's how the location changes per unit of time. If we translate it to mathematics, it would look like:
+Average velocity over a time interval $\Delta t$ is the single, constant velocity that reproduces your actual displacement over your actual time. It's how the location changes per unit of time. If we translate it to mathematics, it would look like:
 
 $$
 v_{\text{avg}} = \frac{x(t+\Delta t)-x(t)}{\Delta t}=\frac{\Delta x}{\Delta t} 
 $$
 
-Now, let's say you need the velocity at an instant t. If you set it into $$ v_{\text{avg}} $$, you get $$ \Delta t=\frac{0}{0}=0 $$.
-So first of all, that's nonsense  and we know that we just dont use the right tool, because how can it be that at an instant t, so at a very short moment, the velocity is 0? If an object moves and you zoom into a millisecond, it would still have to travel some distance over that milisecond. 
-Second, division by 0 cannot be defined. Starting from division, we might or might not know that it is defined from multiplication: $$ \frac{a}{b} $$ means the UNIQUE number $$ c $$ s.t. $$  cb=a $$. If $$ b=0, a\neq 0 $$: no $$ c $$ exists, since $$ c\cdot 0 = 0 \neq a $$. If $$ a,b=0 $$, then $$ c$ $ is not unique, because any $$ c $$ is valid for $$ c\cdot 0=0 $$.
+Now, let's say you need the velocity at an instant $t$. If you set $\Delta t = 0$ in $v_{\text{avg}}$, you get $v_{\text{avg}}=\frac{0}{0}$, which is undefined.
+So first of all, we know that we just don't use the right tool, because how can it be that at an instant $t$, so at a very short moment, the velocity has no value? If an object moves and you zoom into a millisecond, it would still have to travel some distance over that millisecond.
+Second, division by 0 cannot be defined. Starting from division, we might or might not know that it is defined from multiplication: $\frac{a}{b}$ means the UNIQUE number $c$ s.t. $cb=a$. If $b=0, a\neq 0$: no $c$ exists, since $c \cdot 0 = 0 \neq a$. If $a,b=0$, then $c$ is not unique, because any $c$ is valid for $c \cdot 0=0$.
 
-Let's compute the difference quotient for a concrete motion $x(t)=t^2$ :
+Let's compute the difference quotient for a concrete motion $x(t)=t^2$:
+
 $$
-\frac{(t+\Delta t)^2 - \Delta t^2}{\Delta t}=\frac{2t\Delta t +(\Delta t )^2}{\Delta t}=2t+\Delta t
+\frac{(t+\Delta t)^2 - t^2}{\Delta t}=\frac{2t\Delta t +(\Delta t)^2}{\Delta t}=2t+\Delta t
 $$
 
 On a position–time graph, $\bar{v}$ is the slope of the straight line
