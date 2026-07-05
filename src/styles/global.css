@@ -142,3 +142,14 @@ ul.post-list li {
   font-size: 0.85rem;
   color: var(--color-muted);
 }
+
+/* Section path shown above a post's title, e.g. "physics / mechanics" */
+.post-section {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-bottom: 0;
+}
+
+.post-section + h1 {
+  margin-top: 0.25em;
+}

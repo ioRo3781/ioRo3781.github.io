@@ -8,19 +8,26 @@ remark-math/rehype-katex.
 
 ```
 src/
-  content/writing/    markdown posts (one file per post)
+  content/writing/    markdown posts in nested topic folders, e.g.
+                      physics/mechanics/average-velocity.md
   content.config.ts   schema for the "writing" collection
   layouts/            BaseLayout (site chrome) and PostLayout (post header)
-  pages/              index.astro, about.astro, writing/index.astro, writing/[slug].astro
+  pages/              index.astro, about.astro, writing/index.astro, writing/[...slug].astro
   styles/global.css   all site styling
-public/images/<slug>/ images for a given post
+public/images/<path>/ images for a post, mirroring its content path
 ```
+
+The folder path is the post's section: it becomes the URL
+(`/writing/physics/mechanics/average-velocity/`), the grouping heading on
+the writing page, and the breadcrumb above the post title. Folders can nest
+as deep as needed.
 
 ## Writing a new post
 
-Copy `src/content/writing/example-post.md`, rename the file, and edit the
+Copy `src/content/writing/mathematics/example-post.md` into the right topic
+folder (create new folders freely), rename the file, and edit the
 frontmatter (`title`, `date`, `description`) and body. Put any images for
-the post in `public/images/<new-slug>/`.
+the post in `public/images/<same path>/`.
 
 ## Commands
 

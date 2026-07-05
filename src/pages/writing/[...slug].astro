@@ -2,8 +2,10 @@
 import PostLayout from '../../layouts/PostLayout.astro';
 import { getCollection, render } from 'astro:content';
 
-// Astro needs to know every possible value of [slug] at build time,
+// Astro needs to know every possible value of [...slug] at build time,
 // since GitHub Pages only serves static files (no server to run per-request).
+// The [...slug] rest parameter (vs plain [slug]) lets the id contain slashes,
+// so physics/mechanics/average-velocity.md → /writing/physics/mechanics/average-velocity/.
 export async function getStaticPaths() {
   const posts = await getCollection('writing');
   return posts.map((post) => ({
@@ -14,12 +16,16 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// "physics/mechanics/average-velocity" → "physics / mechanics"
+const section = post.id.split('/').slice(0, -1).join(' / ');
 ---
 
 <PostLayout
   title={post.data.title}
   date={post.data.date}
   description={post.data.description}
+  section={section}
 >
   <Content />
 </PostLayout>

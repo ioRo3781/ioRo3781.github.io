@@ -2,29 +2,46 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('writing')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const posts = await getCollection('writing');
+
+// Group posts by folder path: physics/mechanics/average-velocity.md
+// belongs to the "physics / mechanics" section.
+const sections = new Map<string, typeof posts>();
+for (const post of posts) {
+  const section = post.id.split('/').slice(0, -1).join(' / ');
+  sections.set(section, [...(sections.get(section) ?? []), post]);
+}
+
+// Sections alphabetically; posts within a section newest first.
+const sorted = [...sections.entries()].sort(([a], [b]) => a.localeCompare(b));
+for (const [, list] of sorted) {
+  list.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+}
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 ---
 
 <BaseLayout title="Writing" description="Writing by Your Name">
   <h1>Writing</h1>
-  <ul class="post-list">
-    {
-      posts.map((post) => (
-        <li>
-          <a href={`/writing/${post.id}/`}>{post.data.title}</a>
-          <span class="post-date">
-            {post.data.topic} &middot;{' '}
-            {post.data.date.toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </span>
-          <p class="muted">{post.data.description}</p>
-        </li>
-      ))
-    }
-  </ul>
+  {
+    sorted.map(([section, list]) => (
+      <section>
+        {section && <h2>{section}</h2>}
+        <ul class="post-list">
+          {list.map((post) => (
+            <li>
+              <a href={`/writing/${post.id}/`}>{post.data.title}</a>
+              <span class="post-date">{formatDate(post.data.date)}</span>
+              <p class="muted">{post.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 </BaseLayout>

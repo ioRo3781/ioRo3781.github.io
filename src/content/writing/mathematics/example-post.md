@@ -2,7 +2,6 @@
 title: "Example Post: Template for Future Writing"
 date: 2026-07-04
 description: "A template post demonstrating headings, math, code, and images."
-topic: mathematics
 ---
 
 This is a template post. Copy this file, rename it, and replace the content
@@ -62,10 +61,12 @@ print(fibonacci(10))
 
 ## Images
 
-Post images live in `public/images/<post-slug>/` and are referenced with a
+Post images live in a folder mirroring the post's path — this post is
+`mathematics/example-post.md`, so its images go in
+`public/images/mathematics/example-post/` — and are referenced with a
 root-relative path:
 
-![A simple example diagram](/images/example-post/diagram.svg)
+![A simple example diagram](/images/mathematics/example-post/diagram.svg)
 
 That's the whole template. Delete this text, keep the structure, and start
 writing.
