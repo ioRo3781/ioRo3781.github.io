@@ -7,7 +7,7 @@ description: "Here are the basic mathematics and physics behind those topics "
 Average velocity over time $${\Delta t}$$ is displacement divided by the time it took:
 
 $$
-\bar{v} = \frac{\Delta x}{\Delta t} = \frac{x_2 - x_1}{t_2 - t_1}
+v_avg = \frac{\Delta x}{\Delta t} = \frac{x_2 - x_1}{t_2 - t_1}
 $$
 
 On a position–time graph, $\bar{v}$ is the slope of the straight line
