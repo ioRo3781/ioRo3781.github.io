@@ -9,6 +9,7 @@ Average velocity over time $${\Delta t}$$ is a the single, constant velocity tha
 $$
 v_{\text{avg}} = \frac{x(t+\Delta t)-x(t)}{\Delta t}=\frac{\Delta x}{\Delta t} 
 $$
+
 Now, let's say you need the velocity at an instant t. If you set it into $$v_{\text{avg}}$$, you get $$\Delta t$$.
 
 On a position–time graph, $\bar{v}$ is the slope of the straight line
