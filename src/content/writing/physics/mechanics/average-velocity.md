@@ -4,10 +4,10 @@ date: 2026-07-05
 description: "Here are the basic mathematics and physics behind those topics "
 ---
 
-Average velocity over time $${\Delta t}$$ is displacement divided by the time it took:
+Average velocity over time $${\Delta t}$$ is a the single, constant velocity that reproduces your actual displacement over your actual time. It's how the location changes per unit of time. If we translate it to mathematics, it would look like
 
 $$
-v_{\text{avg}} = \frac{\Delta x}{\Delta t} = \frac{x_2 - x_1}{t_2 - t_1}
+v_{\text{avg}} = \frac{x(t+\Delta t)-x(t)}{\Delta t}=\frac{\Delta x}{\Delta t} 
 $$
 
 On a position–time graph, $\bar{v}$ is the slope of the straight line
