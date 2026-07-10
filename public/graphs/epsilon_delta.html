@@ -5,33 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Epsilon-delta</title>
 <style>
+  /* Colors match the site's global.css; the site is light-only, so no
+     dark-mode override here — a dark box in a white page would stick out. */
   :root {
-    --text-primary: #1f1f1d;
-    --text-secondary: #5f5e5a;
+    --text-primary: #1a1a1a;
+    --text-secondary: #595959;
     --text-muted: #888780;
     --border-strong: #b4b2a9;
-    --surface-0: #faf9f5;
+    --surface-0: #ffffff;
     --accent: #378ADD;
     --accent-bg: #E6F1FB;
     --pro: #7F77DD;
     --pro-bg: #EEEDFE;
     --success: #3B6D11;
     --danger: #A32D2D;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --text-primary: #eceae2;
-      --text-secondary: #b4b2a9;
-      --text-muted: #888780;
-      --border-strong: #5f5e5a;
-      --surface-0: #1a1a18;
-      --accent: #85B7EB;
-      --accent-bg: #0C447C;
-      --pro: #AFA9EC;
-      --pro-bg: #3C3489;
-      --success: #97C459;
-      --danger: #F09595;
-    }
   }
   body {
     margin: 0;
@@ -43,7 +30,7 @@
   main { max-width: 680px; margin: 0 auto; }
   .ctrls { display: flex; flex-direction: column; gap: 14px; margin: 0 0 1.5rem; }
   .row { display: flex; align-items: center; gap: 12px; }
-  .label { font-size: 14px; color: var(--text-secondary); min-width: 190px; }
+  .label { font-size: 14px; color: var(--text-secondary); min-width: 52px; }
   .val { font-size: 14px; font-weight: 500; min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
   input[type=range] { flex: 1; accent-color: var(--accent); }
   .status { font-size: 15px; font-weight: 500; margin-top: 0.75rem; min-height: 1.6em; }
@@ -54,19 +41,18 @@
 <main>
   <div class="ctrls">
     <div class="row">
-      <span class="label">&epsilon; &mdash; output tolerance (y)</span>
+      <span class="label">&epsilon; &mdash; y</span>
       <input type="range" id="eps" min="0.05" max="0.6" step="0.01" value="0.4">
       <span class="val" id="eps-v">0.40</span>
     </div>
     <div class="row">
-      <span class="label">&delta; &mdash; input closeness (x)</span>
+      <span class="label">&delta; &mdash; x</span>
       <input type="range" id="del" min="0.02" max="0.4" step="0.01" value="0.15">
       <span class="val" id="del-v">0.15</span>
     </div>
   </div>
   <div id="plot"></div>
   <div class="status" id="status"></div>
-  <p class="note">Swap the function, the point, and the limit in the CONFIG block below.</p>
 </main>
 
 <script>
@@ -130,15 +116,15 @@ function draw(eps, del) {
   <circle cx="${sx(a)}" cy="${sy(L)}" r="4" fill="var(--text-primary)"/>
   <text x="${ML - 8}" y="${sy(L) + 4}" text-anchor="end" font-size="13" font-weight="500" fill="var(--text-primary)">L</text>
   <text x="${sx(a)}" y="${MT + PH + 18}" text-anchor="middle" font-size="13" font-weight="500" fill="var(--text-primary)">a</text>
-  <text x="${ML + PW - 14}" y="${bandTop + 16}" text-anchor="end" font-size="13" font-weight="500" fill="var(--accent)">&epsilon; band</text>
-  <text x="${sx(a)}" y="${MT + 16}" text-anchor="middle" font-size="13" font-weight="500" fill="var(--pro)">&delta; strip</text>
+  <text x="${ML + PW - 14}" y="${bandTop + 16}" text-anchor="end" font-size="13" font-weight="500" fill="var(--accent)">&epsilon; area</text>
+  <text x="${sx(a)}" y="${MT + 16}" text-anchor="middle" font-size="13" font-weight="500" fill="var(--pro)">&delta; area</text>
 </svg>`;
 
   const st = document.getElementById('status');
   st.style.color = fits ? 'var(--success)' : 'var(--danger)';
   st.textContent = fits
-    ? 'The graph stays inside the \u03B5 band across the whole strip \u2014 this \u03B4 works.'
-    : 'The graph escapes the \u03B5 band \u2014 this \u03B4 is too wide for this \u03B5.';
+    ? 'The graph stays inside the \u03B5 area across the whole \u03B4 area \u2014 this \u03B4 works.'
+    : 'The graph escapes the \u03B5 area \u2014 this \u03B4 is too wide for this \u03B5.';
 }
 
 const eps = document.getElementById('eps'), del = document.getElementById('del');

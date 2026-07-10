@@ -37,9 +37,9 @@ Lets say something informal like "$f(x)$ approaches $L$ as $x$ approaches $a$". 
 
 Definition of limit: $L:=\lim_{x \to a} f(x)$ means: $\forall \varepsilon>0$  $\exists \delta>0$ s.t. $\forall x$ with $0<|x-a|<\delta$, we have $f(x)-L|<\varepsilon$.
 
-Play with it yourself: pick an $\varepsilon$ (the horizontal band around $L$), then try to find a $\delta$ (the vertical strip around $a$) small enough that the graph stays inside the band. Here $f(x)=x^2$, $a=1$, $L=1$:
+Play with it yourself: pick an $\varepsilon$ (the allowed distance from $L$), then try to find a $\delta$ (how close $x$ must stay to $a$) small enough that the graph stays inside the $\varepsilon$ area. Here $f(x)=x^2$, $a=1$, $L=1$:
 
-<iframe src="/graphs/epsilon_delta.html" title="Interactive epsilon-delta demo" width="100%" height="620" style="border: 1px solid var(--color-border); border-radius: 4px;" loading="lazy"></iframe>
+<iframe src="/graphs/epsilon_delta.html" title="Interactive epsilon-delta demo" width="100%" height="520" style="border: 1px solid var(--color-border); border-radius: 4px;" loading="lazy"></iframe>
 
 
 
