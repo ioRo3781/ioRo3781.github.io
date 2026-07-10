@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Epsilon-delta</title>
+<style>
+  :root {
+    --text-primary: #1f1f1d;
+    --text-secondary: #5f5e5a;
+    --text-muted: #888780;
+    --border-strong: #b4b2a9;
+    --surface-0: #faf9f5;
+    --accent: #378ADD;
+    --accent-bg: #E6F1FB;
+    --pro: #7F77DD;
+    --pro-bg: #EEEDFE;
+    --success: #3B6D11;
+    --danger: #A32D2D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-primary: #eceae2;
+      --text-secondary: #b4b2a9;
+      --text-muted: #888780;
+      --border-strong: #5f5e5a;
+      --surface-0: #1a1a18;
+      --accent: #85B7EB;
+      --accent-bg: #0C447C;
+      --pro: #AFA9EC;
+      --pro-bg: #3C3489;
+      --success: #97C459;
+      --danger: #F09595;
+    }
+  }
+  body {
+    margin: 0;
+    padding: 2rem 1.5rem;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    font: 400 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 680px; margin: 0 auto; }
+  .ctrls { display: flex; flex-direction: column; gap: 14px; margin: 0 0 1.5rem; }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .label { font-size: 14px; color: var(--text-secondary); min-width: 190px; }
+  .val { font-size: 14px; font-weight: 500; min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
+  input[type=range] { flex: 1; accent-color: var(--accent); }
+  .status { font-size: 15px; font-weight: 500; margin-top: 0.75rem; min-height: 1.6em; }
+  .note { font-size: 13px; color: var(--text-muted); margin-top: 1.5rem; }
+</style>
+</head>
+<body>
+<main>
+  <div class="ctrls">
+    <div class="row">
+      <span class="label">&epsilon; &mdash; output tolerance (y)</span>
+      <input type="range" id="eps" min="0.05" max="0.6" step="0.01" value="0.4">
+      <span class="val" id="eps-v">0.40</span>
+    </div>
+    <div class="row">
+      <span class="label">&delta; &mdash; input closeness (x)</span>
+      <input type="range" id="del" min="0.02" max="0.4" step="0.01" value="0.15">
+      <span class="val" id="del-v">0.15</span>
+    </div>
+  </div>
+  <div id="plot"></div>
+  <div class="status" id="status"></div>
+  <p class="note">Swap the function, the point, and the limit in the CONFIG block below.</p>
+</main>
+
+<script>
+// ---- CONFIG: change these three together -------------------------------
+const f = x => x * x;   // the function
+const a = 1;            // the point x approaches
+const L = 1;            // the claimed limit
+const VIEW = { x0: 0.5, x1: 1.5, y0: 0.25, y1: 2.25 };  // plot window
+// ------------------------------------------------------------------------
+
+const W = 680, H = 420, ML = 54, MR = 20, MT = 20, MB = 42;
+const PW = W - ML - MR, PH = H - MT - MB;
+
+const sx = x => ML + (x - VIEW.x0) / (VIEW.x1 - VIEW.x0) * PW;
+const sy = y => (MT + PH) - (y - VIEW.y0) / (VIEW.y1 - VIEW.y0) * PH;
+
+function pathOver(xa, xb, N = 300) {
+  const pts = [];
+  for (let i = 0; i <= N; i++) {
+    const x = xa + (xb - xa) * i / N;
+    const y = f(x);
+    if (Number.isFinite(y)) pts.push(`${sx(x).toFixed(2)},${sy(y).toFixed(2)}`);
+  }
+  return 'M' + pts.join(' L');
+}
+
+// Sample the punctured strip and take the worst-case deviation from L.
+// Endpoint-only checks are wrong for any f that is not monotone on the strip.
+function worstDeviation(del, N = 800) {
+  let worst = 0;
+  for (let i = 0; i <= N; i++) {
+    const x = (a - del) + (2 * del) * i / N;
+    if (Math.abs(x - a) < 1e-12) continue;   // the 0 < |x - a| puncture
+    const y = f(x);
+    if (!Number.isFinite(y)) continue;
+    worst = Math.max(worst, Math.abs(y - L));
+  }
+  return worst;
+}
+
+function draw(eps, del) {
+  const bandTop = sy(L + eps), bandBot = sy(L - eps);
+  const stripL = sx(a - del), stripR = sx(a + del);
+  const fits = worstDeviation(del) < eps + 1e-9;
+  const seg = fits ? 'var(--success)' : 'var(--danger)';
+
+  document.getElementById('plot').innerHTML = `
+<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Epsilon band and delta strip</title>
+  <desc>The graph of f with a horizontal band of half-height epsilon around L and a vertical strip of half-width delta around a.</desc>
+  <rect x="${ML}" y="${bandTop}" width="${PW}" height="${bandBot - bandTop}" fill="var(--accent-bg)" fill-opacity="0.5"/>
+  <rect x="${stripL}" y="${MT}" width="${stripR - stripL}" height="${PH}" fill="var(--pro-bg)" fill-opacity="0.55"/>
+  <line x1="${ML}" y1="${MT}" x2="${ML}" y2="${MT + PH}" stroke="var(--border-strong)" stroke-width="1"/>
+  <line x1="${ML}" y1="${MT + PH}" x2="${ML + PW}" y2="${MT + PH}" stroke="var(--border-strong)" stroke-width="1"/>
+  <path d="${pathOver(VIEW.x0, VIEW.x1)}" fill="none" stroke="var(--text-muted)" stroke-width="1.5"/>
+  <line x1="${ML}" y1="${bandTop}" x2="${ML + PW}" y2="${bandTop}" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="${ML}" y1="${bandBot}" x2="${ML + PW}" y2="${bandBot}" stroke="var(--accent)" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="${stripL}" y1="${MT}" x2="${stripL}" y2="${MT + PH}" stroke="var(--pro)" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="${stripR}" y1="${MT}" x2="${stripR}" y2="${MT + PH}" stroke="var(--pro)" stroke-width="1" stroke-dasharray="4 3"/>
+  <path d="${pathOver(a - del, a + del)}" fill="none" stroke="${seg}" stroke-width="3.5"/>
+  <circle cx="${sx(a)}" cy="${sy(L)}" r="4" fill="var(--text-primary)"/>
+  <text x="${ML - 8}" y="${sy(L) + 4}" text-anchor="end" font-size="13" font-weight="500" fill="var(--text-primary)">L</text>
+  <text x="${sx(a)}" y="${MT + PH + 18}" text-anchor="middle" font-size="13" font-weight="500" fill="var(--text-primary)">a</text>
+  <text x="${ML + PW - 14}" y="${bandTop + 16}" text-anchor="end" font-size="13" font-weight="500" fill="var(--accent)">&epsilon; band</text>
+  <text x="${sx(a)}" y="${MT + 16}" text-anchor="middle" font-size="13" font-weight="500" fill="var(--pro)">&delta; strip</text>
+</svg>`;
+
+  const st = document.getElementById('status');
+  st.style.color = fits ? 'var(--success)' : 'var(--danger)';
+  st.textContent = fits
+    ? 'The graph stays inside the \u03B5 band across the whole strip \u2014 this \u03B4 works.'
+    : 'The graph escapes the \u03B5 band \u2014 this \u03B4 is too wide for this \u03B5.';
+}
+
+const eps = document.getElementById('eps'), del = document.getElementById('del');
+function update() {
+  const e = parseFloat(eps.value), d = parseFloat(del.value);
+  document.getElementById('eps-v').textContent = e.toFixed(2);
+  document.getElementById('del-v').textContent = d.toFixed(2);
+  draw(e, d);
+}
+eps.addEventListener('input', update);
+del.addEventListener('input', update);
+update();
+</script>
+</body>
+</html>
