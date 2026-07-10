@@ -1,8 +1,10 @@
 ---
-title: "Basics on velocity and acceleration"
+title: Basics on velocity and acceleration
 date: 2026-07-05
-description: "Here are the basic mathematics and physics behind those topics "
+description: " Here are the basic mathematics and physics behind those topics " 
 ---
+
+## 1.1 Average Velocity and it's limitations
 
 Average velocity over a time interval $\Delta t$ is the single, constant velocity that reproduces your actual displacement over your actual time. It's how the location changes per unit of time. If we translate it to mathematics, it would look like:
 
@@ -17,15 +19,41 @@ Second, division by 0 cannot be defined. Starting from division, we might or mig
 Let's compute the difference quotient for a concrete motion $x(t)=t^2$:
 
 $$
-\frac{(t+\Delta t)^2 - t^2}{\Delta t}=\frac{2t\Delta t +(\Delta t)^2}{\Delta t}=2t+\Delta t
+\frac{(t+\Delta t)^2 - t^2}{\Delta t}=\frac{2t\Delta t +(\Delta t)^2}{\Delta t}=2t+\Delta t \qquad (\Delta t \neq 0)
 $$
 
-On a position–time graph, $\bar{v}$ is the slope of the straight line
-connecting the two points — a secant. The motion between them can be
-arbitrarily messy; the average only sees the endpoints:
+So, for every nonzero,tiny $\Delta t$, the ratio is a valid number and those numbers approach $2t$ as $\Delta t$ shrinks. The endpoint $\Delta t=0$ is meaningless, but the ratio has a destination. So concluding, instantaneous velocity must be defined as the destination and not the endpoint. Velocity at $t$ is not a property of an instant, but rather  of the motion of arbitrarily small neighborhoods in of $t$.
+
+On a position–time graph, $v_{\text{avg}}$ is the slope of the straight line
+connecting the two point, which mathematically is a secant. The motion between them can be
+arbitrarily messy,since  the average only sees the endpoints:
 
 ![A wiggly position-time curve with a dashed secant line connecting two marked points](/images/physics/mechanics/average-velocity/position-time.svg)
 
-[Stub — expand with examples, and contrast with instantaneous velocity,
-which lives at physics/mechanics/instantaneous-velocity.md when you
-write it.]
+
+## 1.2 What exactly is this "destination", what exactly does approach mean?
+
+Lets say something informal like "$f(x)$ approaches $L$ as $x$ approaches $a$". What do we mean by "approach"? Let's translate it into the language of mathematics, since such an important concept must be consistent.
+
+Definition of limit: $L:=\lim_{x \to a} f(x)$ means: $\forall \varepsilon>0$  $\exists \delta>0$ s.t. $\forall x$ with $0<|x-a|<\delta$, we have $f(x)-L|<\varepsilon$.
+
+Play with it yourself: pick an $\varepsilon$ (the horizontal band around $L$), then try to find a $\delta$ (the vertical strip around $a$) small enough that the graph stays inside the band. Here $f(x)=x^2$, $a=1$, $L=1$:
+
+<iframe src="/graphs/epsilon_delta.html" title="Interactive epsilon-delta demo" width="100%" height="620" style="border: 1px solid var(--color-border); border-radius: 4px;" loading="lazy"></iframe>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

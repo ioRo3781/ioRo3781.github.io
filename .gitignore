@@ -20,5 +20,10 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# vim swap files
+*.swp
+*.swo
+*~
+
 # jetbrains setting folder
 .idea/
