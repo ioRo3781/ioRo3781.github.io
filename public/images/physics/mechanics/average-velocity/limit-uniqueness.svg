@@ -1,0 +1,65 @@
+<svg width="680" height="470" viewBox="0 0 680 470" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>The pincer argument for uniqueness of limits</title>
+  <desc>Two disjoint horizontal areas of half-width d/2 around L and M, a delta-window on the x-axis around a, and a point f(x0) that would have to lie in both areas at once.</desc>
+  <style>
+    svg { --t: #4a4a4a; }
+    text { font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: var(--t); }
+    .ts { font-size: 13px; }
+    .th { font-size: 15px; font-weight: 600; }
+    .c-teal rect { fill: #1D9E75; fill-opacity: 0.08; stroke: #1D9E75; }
+    .c-teal text { fill: #157A5A; }
+    .c-coral rect { fill: #D85A30; fill-opacity: 0.08; stroke: #D85A30; }
+    .c-coral text { fill: #B34A26; }
+    .leader { stroke: #888780; stroke-width: 1; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#BA7517" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Area around L (teal) -->
+  <g class="c-teal">
+    <rect x="90" y="60" width="450" height="160" rx="0" stroke-width="0.5"/>
+    <text class="ts" x="104" y="84">|f(x) − L| &lt; d/2</text>
+  </g>
+
+  <!-- Area around M (coral) -->
+  <g class="c-coral">
+    <rect x="90" y="220" width="450" height="160" rx="0" stroke-width="0.5"/>
+    <text class="ts" x="104" y="360">|f(x) − M| &lt; d/2</text>
+  </g>
+
+  <!-- Center lines at L and M, and the midline where the areas meet -->
+  <line x1="90" y1="140" x2="540" y2="140" stroke="#1D9E75" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="90" y1="300" x2="540" y2="300" stroke="#D85A30" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="90" y1="220" x2="540" y2="220" stroke="var(--t)" stroke-width="1" stroke-dasharray="2 4"/>
+
+  <!-- Axes -->
+  <line x1="90" y1="50" x2="90" y2="400" stroke="var(--t)" stroke-width="1"/>
+  <line x1="90" y1="400" x2="620" y2="400" stroke="var(--t)" stroke-width="1"/>
+  <text class="th" x="78" y="140" text-anchor="end" dominant-baseline="central">L</text>
+  <text class="th" x="78" y="300" text-anchor="end" dominant-baseline="central">M</text>
+
+  <!-- Delta-window boundaries around a -->
+  <line x1="350" y1="50" x2="350" y2="400" stroke="var(--t)" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="450" y1="50" x2="450" y2="400" stroke="var(--t)" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="400" y1="397" x2="400" y2="403" stroke="var(--t)" stroke-width="1"/>
+  <text class="t" x="398" y="420" text-anchor="middle">a</text>
+
+  <!-- The witness point x0 and its impossible value f(x0) -->
+  <line x1="425" y1="400" x2="425" y2="228" stroke="#BA7517" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="ts" x="428" y="420" text-anchor="middle">x₀</text>
+  <line x1="425" y1="212" x2="425" y2="150" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="425" y1="228" x2="425" y2="290" stroke="#BA7517" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <circle cx="425" cy="220" r="5" fill="#BA7517"/>
+  <line class="leader" x1="431" y1="215" x2="546" y2="152"/>
+  <text class="ts" x="552" y="148">f(x₀) needs to be</text>
+  <text class="ts" x="552" y="164">in both areas</text>
+
+  <!-- Bracket under the axis: the overlap window -->
+  <line x1="350" y1="426" x2="450" y2="426" stroke="var(--t)" stroke-width="1"/>
+  <line x1="350" y1="422" x2="350" y2="430" stroke="var(--t)" stroke-width="1"/>
+  <line x1="450" y1="422" x2="450" y2="430" stroke="var(--t)" stroke-width="1"/>
+  <text class="ts" x="400" y="446" text-anchor="middle">δ = min(δ₁, δ₂)</text>
+</svg>
