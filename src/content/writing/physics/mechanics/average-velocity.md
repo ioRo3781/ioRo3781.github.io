@@ -6,7 +6,7 @@ description: " Here are the basic mathematics and physics behind those topics "
 
 ## 1.1 Average Velocity and its limitations
 
-Average velocity over a time interval $\Delta t$ is the single, constant velocity that reproduces your actual displacement over your actual time. It''s how the location changes per unit of time. If we translate it to mathematics, it would look like:
+Average velocity over a time interval $\Delta t$ is the single, constant velocity that reproduces your actual displacement over your actual time. It's how the location changes per unit of time. If we translate it to mathematics, it would look like:
 
 $$
 v_{\text{avg}} = \frac{x(t+\Delta t)-x(t)}{\Delta t}=\frac{\Delta x}{\Delta t} 
@@ -135,10 +135,27 @@ This is an image of $X$ under $f$, the size of which is specified by $\delta$. I
 
 ## 1.2.4 Limit uniqueness
 
+Imagine a function would have two limits at the same point, formally:
+
+
+$\lim\limits_{x\to a}f(x)=L$ and $\lim\limits_{x\to a}f(x)=M$  
+
+Is this possible? Look at the diagram below and let's try to prove it, but first **try it for yourself!**
 ![Two disjoint horizontal areas of half-width d/2 around L and M, a delta-window around a, and a point f(x₀) that would have to lie in both areas at once](/images/physics/mechanics/average-velocity/limit-uniqueness.svg)
+Note: The diagram abstracts the graph a bit by drawing no function, because the proof doesn't require a function.
+
+**Theorem**. If $\lim\limits_{x\to a}f(x)=L$ and $\lim\limits_{x\to a}f(x)=M$, then $L=M$.
+    Proof. For a limit to exist, the statement must be true $\forall \varepsilon$. What happens if we choose $\varepsilon=\frac{d}{2}$ and some $x_{0}$? From this choice, it follows that:
+$$
+d=|L-M|\leq |L-f(x_{0})| + |M-f(x_{0})|<2\varepsilon=d
+$$
+Which of course is nonsense, since $d < d$ and your trip from $L$ to $M$ which happens trough $f(x_{0})$ is less then the trips direct length , altough you cover it. Both of those statements force $L=M$.
+An even simpler proof:
+Look at $|L-M|<\varepsilon$. What is the nonnegative number below every possible positive number? Right. Hence, $L-M$.
+Another way to look a
 
 
-
+## 1.2.5 Limit laws
 
 
 
