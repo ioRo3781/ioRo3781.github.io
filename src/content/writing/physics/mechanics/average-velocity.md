@@ -1,7 +1,7 @@
 ---
 title: Basics on velocity and acceleration
 date: 2026-07-05
-description:  Here are the basic mathematics and physics behind those topics ) 
+description:  Here are the basic mathematics and physics behind those topics 
 ---
 
 ## 1.1 Average Velocity and its limitations
@@ -31,7 +31,7 @@ arbitrarily messy, since the average only sees the endpoints:
 ![A wiggly position-time curve with a dashed secant line connecting two marked points](/images/physics/mechanics/average-velocity/position-time.svg)
 
 
-## 1.2 What exactly is this destination , what exactly does approach mean?
+## 1.2 What exactly is this destination, what exactly does approach mean?
 
 Let's say something informal of what we want to mean by a limit: "$f(x)$ approaches $L$ as $x$ approaches $a$". Let's translate it into the language of mathematics, since such an important concept must be consistent.
 
@@ -49,7 +49,7 @@ We are going to really deep dive into the concept of the limit. You can skip som
 
 
 
-What is a function? A function is a rule f which takes an input and returns EXACTLY ONE output. The domain is the set/collection of values which the function takes as an input, the range or codomain is the set/collection of outputs.
+What is a function? A function is a rule f which takes an input and returns EXACTLY ONE output. The domain is the set/collection of values which the function takes as an input, the codomain(set of all possible values a function could produce) or range(the set of values the function does produce) are the sets of outputs. 
 
 What idea are we trying to understand? As the input $x$ gets near to $a$, the output $f(x)$ gets near some fixed number $L$. So $L$ isn't the behaviour itself, but rather some specific $y$-value that is showing the behaviour of a function near a point $a$. That's already it. The whole rigor lies pretty much in describing what we mean by "gets near" mathematically.
 
@@ -129,7 +129,7 @@ You get a set of output values
 $$
 S(\delta)= \{f(x) \mid x\in X,\ 0<|x-a|<\delta\}
 $$
-This is an image of $X$ under $f$, the size of which is specified by $\delta$. It represents the total vertical spread of your outputs inside the ceiling $\delta$. As you shrink $\delta$, the whole spread $S(\delta)$ gets smaller. Let's call the vertical distance between your highest and lowest $y$ values "diameter". As you zoom in infinitely on the $x$-axis, the diameter is shrinking more and more to 0 and eventually it is crushed flat into a single point, which is $L$. Now imagine a step function. As $S(\delta)$ approaches the jump, the outputs are strictly divided by some fixed width, which literally means that they can't agree upon one single value, because otherwise the diameter would shrink to 0 because the outputs would collapse into one identical value. 
+This is an image of $\{x : 0<|x-a|<\delta\}$ under $f$, the size of which is specified by $\delta$. It represents the total vertical spread of your outputs inside the ceiling $\delta$. As you shrink $\delta$, the whole spread $S(\delta)$ gets smaller. Let's call the vertical distance between your highest and lowest $y$ values "diameter". If the limit exists, as you zoom in infinitely on the $x$-axis, the diameter is shrinking more and more to 0 and eventually it is crushed flat into a single point, which is $L$. Now imagine a step function. As $S(\delta)$ approaches the jump, the outputs are strictly divided by some fixed width, which literally means that they can't agree upon one single value, because otherwise the diameter would shrink to 0 because the outputs would collapse into one identical value. 
 
 
 
@@ -146,20 +146,17 @@ Note: The diagram abstracts the graph a bit by drawing no function, because the 
 
 **Theorem**. If $\lim\limits_{x\to a}f(x)=L$ and $\lim\limits_{x\to a}f(x)=M$, then $L=M$.
    
-   Proof. For a limit to exist, the statement must be true $\forall \varepsilon$. What happens if we choose $\varepsilon=\frac{d}{2}$ and some $x_{0}$? From this choice, it follows that:
+   Proof. For a limit to exist, the statement must be true $\forall \varepsilon$. Suppose $L\neq M$ and $d=|L-M|>0$. What happens if we choose $\varepsilon=\frac{d}{2}$ for $\delta_{1}$ of $L$ and for $\delta_{2}$ of $M$? Set $\delta=\min(\delta_{1}, \delta_{2})$ and pick $x_{0}$ so that $0<|x_{0}-a|<\delta$. From this choice, it follows that:
 $$
 d=|L-M|\leq |L-f(x_{0})| + |M-f(x_{0})|<2\varepsilon=d
 $$
-Which of course is nonsense, since $d < d$ and your trip from $L$ to $M$ which happens through $f(x_{0})$ is less than the trip's direct length, although you cover it. Both of those statements force $L=M$.
-An even simpler reason:
-Look at $|L-M|<\varepsilon$. What is the nonnegative number below every possible positive number? Right. Hence, $L-M$.
-
+Which of course is nonsense, since $d < d$ and your trip from $L$ to $M$ which happens through $f(x_{0})$ is less than the trip's direct length, although you cover it. The contradiction $d<d$ shows that the assumption $L\neq M$ was false.
 
 
 
 ## 1.2.5 Limit laws
 
-**Theorem**. If $\lim\limits_{x\to a}f(x)=L, \lim\limits_{x\to a}g(x)=M$, then (1) $\lim\limits_{x\to a}(f(x)+g(x))=L+M$, (2) $\lim\limits_{x\to a}(f(x)g(x))=LM$, (3) $\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\frac{L}{M}$.
+**Theorem**. If $\lim\limits_{x\to a}f(x)=L, \lim\limits_{x\to a}g(x)=M$, then (1) $\lim\limits_{x\to a}(f(x)+g(x))=L+M$, (2) $\lim\limits_{x\to a}(f(x)g(x))=LM$, (3) $\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\frac{L}{M}$ iff $M\neq 0$.
 
 **Proof (1)**. Initially, each function may have a different $\varepsilon$ and $\delta$. The $\varepsilon$ is unimportant due to $\forall \varepsilon$ and for $\delta$ we just choose $\min(\delta_{1}, \delta_{2})$ since shrinking $\delta$ for one function doesn't change anything as we discussed earlier. 
 
@@ -176,7 +173,7 @@ $$
 |fg-LM|=|fg-Lg+Lg-LM|\leq |g||f-L| + |L||g-M|
 $$
 
-Since $|g|$ is a function we don't know that can take any value and it's obvious that it gets very small around $a$, we should choose a $\delta_{0}$ s.t. $|g-M|<\varepsilon$, from which follows that $|g|< |M|+\varepsilon$. So now, we have $|g||f-L| < (|M|+\varepsilon)|f-L|$ and we again want it to be below $\frac{\varepsilon}{2}$, so we have $|f-L|<\frac{\varepsilon}{2(|M|+\varepsilon)}$ and for that we would obviously need to choose some $\delta_{1}$. Now we also want $|L||g-M|<\frac{\varepsilon}{2}$, choose some $\delta_{2}$ for that. We can't just divide by $|L|$, because what if it is equal to zero? The expression would be undefined. So again, choose some $\varepsilon$, since it always stays positive and we get $|g-M|<\frac{\varepsilon}{2(|L|+\varepsilon)}$. The $+\varepsilon$ is independent of $|g|$ and is pure "crash-protection". Eventually, you should understand that in both places could be any number you want, the most important thing is that it should be positive.
+Since $|g|$ is a function we don't know that can take any value, we should choose a $\delta_{0}$ s.t. $|g-M|<\varepsilon$, from which follows that $|g|< |M|+\varepsilon$. So now, we have $|g||f-L| < (|M|+\varepsilon)|f-L|$ and we again want it to be below $\frac{\varepsilon}{2}$, so we have $|f-L|<\frac{\varepsilon}{2(|M|+\varepsilon)}$ and for that we would obviously need to choose some $\delta_{1}$. Now we also want $|L||g-M|<\frac{\varepsilon}{2}$, choose some $\delta_{2}$ for that. We can't just divide by $|L|$, because what if it is equal to zero? The expression would be undefined. So again, choose some $\varepsilon$, since it always stays positive and we get $|g-M| < \frac{\varepsilon}{2(|L|+\varepsilon)}$. The $+\varepsilon$ is independent of $|g|$ and is pure "crash-protection". Eventually, you should understand that in both places could be any number you want, the most important thing is that it should be positive.
 
 We now hold 3 separate deltas, each valid only for its own distance from $a$. Recall the fact that for a valid $\varepsilon$, shrinking delta doesn't change anything. So choose a $\delta=\min(\delta_{0}, \delta_{1}, \delta_{2})$. Now chain everything together and you have your proof.
 
@@ -185,7 +182,7 @@ We now hold 3 separate deltas, each valid only for its own distance from $a$. Re
 $$
 |\frac{f}{g}-\frac{L}{M}|\leq |\frac{1}{g}| |f-L|+ |L| |\frac{1}{g}-\frac{1}{M}|
 $$
-Choose a $\delta_{0}$ s.t. $|g-M|< \frac{|M|}{2}$, from which follows $|g| > \frac{|M|}{2}$ which is equivalent to $|\frac{1}{g}|<\frac{2}{|M|}$. Notice that we bind $g$ to $M$, since $M$ is not allowed to be zero anyway, but essentially any tolerance $0< t < |M|$ is valid, some values are just uglier.
+Choose a $\delta_{0}$ s.t. $|g-M|< \frac{|M|}{2}$, from which follows $|g| > \frac{|M|}{2}$ which is equivalent to $|\frac{1}{g}|<\frac{2}{|M|}$ and guarantees that $g(x)\neq 0$ near $a$. Notice that we bind $g$ to $M$, since $M$ is not allowed to be zero anyway, but essentially any tolerance $0< t < |M|$ is valid, some values are just uglier.
 Now we can choose a $\delta_{1}$ s.t. $|f-L|< \frac{\varepsilon |M|}{4}$ and a $\delta_{2}$, but here the things aren't as clear. We have $|\frac{1}{g} - \frac{1}{M}|=\frac{|M-g|}{|M||g|}$ and we have to observe that this will blow up as $g$ shrinks, but we have $|g|> \frac{|M|}{2}$, so $|g|\cdot |M|> \frac{M^2}{2}$. Now we can easily manipulate this inequality into $\frac{|g-M|}{|g|\cdot |M|} < |g-M|\cdot \frac{2}{M^2}$. This leads us to $|L|\cdot |g-M| \cdot \frac{2}{M^2}<\frac{\varepsilon}{2}$ and by accounting for $|L|=0$ we get $|g-M|< \frac{\varepsilon M^2}{4(|L|+\varepsilon)}$. Now, if we choose $\delta=\min(\delta_{0}, \delta_{1}, \delta_{2})$, we get:
 
 $$
