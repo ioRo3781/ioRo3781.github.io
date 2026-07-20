@@ -156,7 +156,7 @@ Which of course is nonsense, since $d < d$ and your trip from $L$ to $M$ which h
 
 ## 1.2.5 Limit laws
 
-**Theorem**. If $\lim\limits_{x\to a}f(x)=L, \lim\limits_{x\to a}g(x)=M$, then (1) $\lim\limits_{x\to a}(f(x)+g(x))=L+M$, (2) $\lim\limits_{x\to a}(f(x)g(x))=LM$, (3) $\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\frac{L}{M}$ iff $M\neq 0$.
+**Theorem**. If $\lim\limits_{x\to a}f(x)=L, \lim\limits_{x\to a}g(x)=M$, then (1) $\lim\limits_{x\to a}(f(x)+g(x))=L+M$, (2) $\lim\limits_{x\to a}(f(x)g(x))=LM$, (3) $\lim\limits_{x\to a}\frac{f(x)}{g(x)}=\frac{L}{M}$ if $M\neq 0$.
 
 **Proof (1)**. Initially, each function may have a different $\varepsilon$ and $\delta$. The $\varepsilon$ is unimportant due to $\forall \varepsilon$ and for $\delta$ we just choose $\min(\delta_{1}, \delta_{2})$ since shrinking $\delta$ for one function doesn't change anything as we discussed earlier. 
 
@@ -188,6 +188,89 @@ Now we can choose a $\delta_{1}$ s.t. $|f-L|< \frac{\varepsilon |M|}{4}$ and a $
 $$
 |\frac{f}{g}-\frac{L}{M}|=|\frac{f}{g}-\frac{L}{g}+ \frac{L}{g}- \frac{L}{M}|\leq|\frac{1}{g}||f-L|+ |L||\frac{1}{g}-\frac{1}{M}|<\frac{2}{|M|}\cdot \frac{\varepsilon|M|}{4}+ |L|\cdot \frac{2}{M^2} \frac{\varepsilon M^2}{4(|L|+\varepsilon)}= \frac{\varepsilon}{2}+ |L|\cdot \frac{\varepsilon}{2(|L|+\varepsilon)}<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon 
 $$
+
+
+
+## 1.3 Continuity
+
+Let's first build some vocabulary.
+
+**Interval**. It's a set of all numbers between some numbers, which can be defined over any number sets which have an order when it comes to the size of numbers, but most of the time we use intervals over $\mathbb{R}$. We distinguish between closed intervals $[a,b]$, which include their endpoints and open intervals $(a,b)$ which exclude them.
+
+**Sequences**. A sequence is an ordered list of numbers. What separates them from sets is the order, which is usually specified through an index $n$ and written as $(a_{n})$. You can look yourself deeper into sequences if you want, but I'm going to jump straight to their convergence. A sequence converges to a limit $L$, if $\forall \varepsilon>0$ we can find a cutoff point $N$ so that from there on all $a_{n}$ with $n\geq N$ satisfy $|a_{n}-L|< \varepsilon$. There are a couple of ways to represent sequences visually, but in a context of a function you just put every $x$ from $(x_{n})$ specified by the domain of the function and map them to some $f(x)$.  
+
+**Bounded Set**. A set $S\subseteq \mathbb{R}$ is bounded above if there is some $M$ s.t. $x\leq M$ $\forall x\in S$. $M$ is called an **upper bound**. It does not need to belong to $S$ and if one upper bound exists, then there are infinitely many upper bounds, since anything larger also works. Bounded below and lower bound are the same definition which only required drawing the $\leq$ in the opposite side. Bounded means both.
+
+**Supremum, Infimum**. A supremum, written as $\sup S$ is the least upper bound, so it satisfies (1) $x\leq \sup S$ $\forall x \in S$ , (2)$\exists x \in S$ and $\forall \varepsilon > 0 $ we have $x> \sup S - \varepsilon$. Infimum is the greatest lower bound, defined similarly. Remember that $\sup S$ doesn't need to be an element of $S$, the open interval $(0, 1) \subset \mathbb{R}$ has a supremum of 1 even though $1 \notin (0, 1)$. When $\sup$ is in the set, we call it maximum. For the infimum we call it minimum. 
+
+**Completeness Axiom**. This axiom states that any nonempty set of real numbers which is bounded above has a supremum in $\mathbb{R}$. From that the same condition follows for the set being bounded below and infimum, you can show it yourself by using reflection. This axiom is what separates $\mathbb{R}$ from $\mathbb{Q}$, since in $\mathbb{Q}$ there exists the set $\{q \in \mathbb{Q} \mid q^2 < 2\}$, which is bounded above but has no supremum in $\mathbb{Q}$ since this would be $\sqrt{2}$ and for every approximation (digits of $\sqrt{2}$ divided by 10^number of digits) there is always a better approximation since this number has infinitely many decimals.
+
+**Continuity**.
+Motivation. The intuitive slogans like "$f$ has no jumps" and "you can draw it without lifting a pen" fail as definitions because they are not rigorous enough. What is a jump? There are also functions which are continuous, but whose graph can't be drawn with not lifting up your pen. What we actually want to capture is instead a promise about approximation: if you want $f(x)$ to be close to $f(a)$, it suffices to take $x$ close enough to $a$. 
+
+**Definition 1.3.1**(Continuity at a point). Let $D \subseteq \mathbb{R}$, $f: D \rightarrow \mathbb{R}$ and $a \in D$. Then $f$ is continuous at $a$ if:
+
+$$
+\forall \varepsilon>0  \exists \delta >0  \forall x \in D: |x-a|<\delta \implies |f(x)-f(a)|<\varepsilon
+$$
+
+$f$ is continuous on $D$ if it is continuous at every $a \in D$.
+
+**Theorem 1.3.1**(Sequential characterization). Let $f: D \rightarrow \mathbb{R}$ and $a \in D$. The following are equivalent:
+
+(i). $f$ is continuous at $a$;
+
+(ii). for every sequence $(x_{n})$ in $D$ with $x_{n} \rightarrow a$, we have $f(x_{n}) \rightarrow f(a)$. 
+
+Since the equivalence statement means "if and only if", we have to prove both directions. 
+
+Proof. (i)$\Rightarrow$(ii). Let $x_{n} \rightarrow a$ and $\varepsilon>0$. Continuity provides $\delta>0$ with $|x-a|<\delta \Rightarrow |f(x)-f(a)|<\varepsilon$, whereas convergence provides us $N$ s.t. $|x_{n}-a|<\delta  \forall n\geq N$. From that we have $|f(x_{n})-f(a)|<\varepsilon$ $\forall n\geq N$. 
+
+
+(ii)$\Rightarrow$(i). If we look at the original statement, we would somehow have to provide a proof for all sequences, so instead we will use contrapositivity. Look at the statement (ii)$\Rightarrow$ (i). This means that if (ii) holds, then (i) is guaranteed. By logic, this is the same as not (i)$\Rightarrow$ not (ii), since if (i) is not guaranteed, it means that (ii) wasn't satisfied. So, lets start with not(i) which says that f is not continuous, for that we have to negate every quantifier and the $\delta \Rightarrow \varepsilon$ statement, but be careful, the $\Rightarrow$implies that it is one logical statement, so that we have:
+
+$$
+\exists \varepsilon_{0}>0 \forall \delta >0 \exists x>0 : |x-a|<\delta \Rightarrow |f(x)-f(a)|\geq \varepsilon_{0}
+$$
+
+Now we use this for not (ii). For all sequences becomes $\exists (x_{n})$ s.t. we choose $\delta=\frac{1}{n}$ with $|x_{n}-a|<\frac{1}{n} \Rightarrow |f(x_{n})-f(a)|\geq \varepsilon_{0}$. This leads us to $x_{n} \rightarrow a$, but $f(x_{n}) \nrightarrow f(a)$ because all values stay at least $\geq \varepsilon_{0}$ from $f(a)$. So we established not(i)$\rightarrow$not(ii) which is equivalent to (ii)$\rightarrow$(i).
+
+
+
+**Bounded Function**. A function $f$ is bounded on $[a, b]$ if its image $f([a, b])=\{f(x): x \in [a,b]\}$ is bounded. It has a maximum if $\exists x_{max} \in [a,b]$ s.t. $f(x_{max})\geq f(x)$ $\forall x$.  
+
+
+**Intermediate value theorem**. if $f$ is continuous on $[a,b]$ and $c$ is any value strictly between $f(a)$ and $f(b)$, then $\exists s \in (a,b)$ s.t. $f(s)=c$. When I first saw the theorem, it seemed so obvious that the whole proof in my head was: "Definition of continuity is already the proof", but it turns out to be false. Continuity goes strictly from input to output, while IVT does the opposite. Look at the function $f(x)=x^2-2$ over $\mathbb{Q}$ on the interval [1, 2]. Every single rational number on this interval has a perfectly continuous limit. If we switch to IVT and ask ourselves if there is an input, such that the output, which was handed to us first, equals 0, then the answer would be no, since $\sqrt{2}$ is not in $\mathbb{Q}$. If we look at continuity, then it just cleanly stepped over 0. So, we would have to prove IVT differently. 
+
+Proof. Assume WLOG $f(a)< c < f(b)$. Define $S=\{x \in [a,b]: f(x)< c\}$. This set is nonempty ($a \in S$) and bounded above by $b$, so by completeness $\exists s= \sup S$. If $f(s)< c$, then there are points within $c-f(s)$ which are in $S$ contradicting that $s$ is an upper bound. If $f(s)> c$, then there are points within $f(s)-c$ contradicting that $s=\sup S$. Therefore, it must follow that $f(s)=c$. So we prove the theorem by picking a target height $c$ and constructing a set $S$ for each $c$, s.t. the set has a least upper bound $s$ which directly maps to $c$. 
+
+
+Example of use of IVT: Existence of roots over subsets of $\mathbb{R}$. 
+
+Let $k \in \mathbb{R}$ with $k>0$ and $n\in \mathbb{N}$. We want to show that $\exists \sqrt[n]{k}$, so how do we do it? Let's define a function $f:D\subseteq \mathbb{R} \rightarrow \mathbb{R}, x\in D \mapsto x^n - k$, so we get to $x=\sqrt[n]{k}$. $f$ is continuous, since $x^n$ is a product of n continuous functions $x$ which is continuous by (1.2.5). $-k$ can be treated as a constant function and from the limit laws we also know that the difference of two continuous functions is continuous. Now let's look at where IVT could help us. The root of a function is defined as the function's value at $y=0$, so it is natural to look at an interval below and above it. For below, let's choose $x=0$ so that $f(0)=-k$ and for above let's use the Bernoulli inequality, which states that $\forall n \in \mathbb{N}, \forall x\geq -1$:
+
+$$
+(1+x)^n \geq 1+nx
+$$
+
+It can be easily proven, so do it yourself. From that inequality we obtain 
+
+$$
+(1+k)^n \geq 1+nk \geq 1+k > k 
+$$
+
+So $f(1+k)=(1+k)^n - k > 0 $. Thus we got the interval $[0, 1+k]$ and by IVT $\exists s \in (0, 1+k) : s^n= k$. Now the specification of the domain determines the next step, but for our sakes let's assume it's just $\mathbb{R}$. Since the function is continuous everywhere, $\exists s= \sqrt[n]{k}$ and it is unique for odd $n$, as $0 \leq a < b \implies 0\leq a^n < b^n$ and if $n$ is even, then we have two roots.
+
+
+
+**Extreme value theorem**. 
+
+
+
+
+
+
+
 
 
 
